@@ -9,6 +9,8 @@ function Weather({ weather }) {
 		setCity("");
 	};
 
+	console.log(weather);
+
 	const getDate = () => {
 		const todayDate = new Date();
 		let month = "";
@@ -80,7 +82,7 @@ function Weather({ weather }) {
 					/>
 					<button type="submit">Search</button>
 				</form>
-				<h1 id="place">{weather.name}</h1>
+				<h1 id="place">{weather?.name}</h1>
 				<div>
 					<h1 id="time">{time}</h1>
 					<h2 id="date">{getDate()}</h2>
@@ -90,17 +92,17 @@ function Weather({ weather }) {
 				<div className="left">
 					<img
 						id="weathericon"
-						src={`/images/openweathermap/${weather.weather[0].icon}.svg`}
+						src={`/images/openweathermap/${weather?.weather[0]?.icon}.svg`}
 						alt=""
 					/>
 					<div>
 						<div className="weatherinfo">
-							<h1>{Math.floor(weather.main.temp)}</h1>
+							<h1>{Math.floor(weather?.main?.temp)}</h1>
 							<span> — </span>
 							<h3>Temprature</h3>
 						</div>
 						<div className="weatherinfo">
-							<h1>{Math.floor(weather.main.feels_like)}</h1>
+							<h1>{Math.floor(weather?.main?.feels_like)}</h1>
 							<span> — </span>
 							<h3>Feels Like</h3>
 						</div>
@@ -111,13 +113,13 @@ function Weather({ weather }) {
 						<img src="/images/humidity.svg" id="humidity" />
 						<h3>Humidity</h3>
 						<span> — </span>
-						<h3>{weather.main.humidity}</h3>
+						<h3>{weather?.main?.humidity}</h3>
 					</div>
 					<div>
 						<img src="/images/wind.svg" id="humidity" />
 						<h3>Wind</h3>
 						<span> — </span>
-						<h3>{weather.wind.speed}</h3>
+						<h3>{weather?.wind?.speed}</h3>
 					</div>
 				</div>
 			</div>
