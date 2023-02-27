@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./weather.css";
 function Weather({ weather }) {
-	let day;
-	const [time, setTime] = useState("");
+	const [time, setTime] = useState("00:00");
 	const [city, setCity] = useState("");
 	const handleCitySubmit = (e) => {
 		e.preventDefault();
@@ -10,33 +9,64 @@ function Weather({ weather }) {
 		setCity("");
 	};
 
-	setInterval(() => {
-		day = new Date().getDay();
-		switch (day) {
+	const getDate = () => {
+		const todayDate = new Date();
+		let month = "";
+		switch (todayDate.getMonth()) {
 			case 0:
-				day = "Monday";
+				month = "January";
 				break;
 			case 1:
-				day = "Tuesday";
+				month = "February";
 				break;
 			case 2:
-				day = "Wednesday";
+				month = "March";
 				break;
 			case 3:
-				day = "Thrusday";
+				month = "April";
 				break;
 			case 4:
-				day = "Friday";
+				month = "May";
 				break;
 			case 5:
-				day = "Saturday";
+				month = "June";
 				break;
 			case 6:
-				day = "Sunday";
+				month = "July";
 				break;
+			case 7:
+				month = "August";
+				break;
+			case 8:
+				month = "September";
+				break;
+			case 9:
+				month = "October";
+				break;
+			case 10:
+				month = "November";
+				break;
+			case 11:
+				month = "December";
+				break;
+			default:
+				month = "NULL";
 		}
-		setTime(day);
+		return `${month} ${todayDate.getDate()}, ${todayDate.getFullYear()}`;
+	};
+
+	function handleTime() {
+		let todayDate = new Date();
+		return todayDate.getHours() + ":" + todayDate.getMinutes();
+	}
+
+	setTimeout(() => {
+		setTime(handleTime());
 	}, 60000);
+
+	useEffect(() => {
+		setTime(handleTime());
+	}, []);
 
 	return (
 		<>
@@ -52,8 +82,8 @@ function Weather({ weather }) {
 				</form>
 				<h1 id="place">{weather.name}</h1>
 				<div>
-					<h1 id="time">21:20</h1>
-					<h2 id="date">Sunday, Feb 26, 2023</h2>
+					<h1 id="time">{time}</h1>
+					<h2 id="date">{getDate()}</h2>
 				</div>
 			</div>
 			<div className="bottomcontainer">
