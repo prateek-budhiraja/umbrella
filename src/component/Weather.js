@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./weather.css";
-function Weather({ weather }) {
+function Weather({ getWeather, weather }) {
 	const [time, setTime] = useState("00:00");
 	const [city, setCity] = useState("");
 	const handleCitySubmit = (e) => {
 		e.preventDefault();
-		console.log(city);
-		setCity("");
+		getLanLat();
 	};
 
-	console.log(weather);
+	const getLanLat = async () => {
+		const result = await axios.get(
+			`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.REACT_APP_OPENWEATHER_KEY}`
+		);
+		setCity("");
+		if (result.data.length != 0) {
+			getWeather(result.data[0].lat, result.data[0].lon);
+		}
+	};
 
 	const getDate = () => {
 		const todayDate = new Date();

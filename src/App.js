@@ -11,7 +11,6 @@ function App() {
 		const resultWeather = await axios.get(
 			`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_OPENWEATHER_KEY}&units=metric`
 		);
-		console.log(resultWeather?.data);
 		setWeather(resultWeather?.data);
 	};
 
@@ -29,7 +28,11 @@ function App() {
 			}
 		);
 	}, []);
-	return !weather ? <Waiting /> : <Weather weather={weather} />;
+	return !weather ? (
+		<Waiting />
+	) : (
+		<Weather getWeather={getWeather} weather={weather} />
+	);
 }
 
 export default App;
